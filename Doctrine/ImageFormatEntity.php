@@ -4,11 +4,11 @@
  *
  * Copyright (c) 2006, 2012 Patrik Votoček (http://patrik.votocek.cz)
  *
- * For the full copyright and license information, 
+ * For the full copyright and license information,
  * please view the file LICENSE.txt that was distributed with this source code.
  */
 
-namespace Nella\Media\Model;
+namespace Nella\Media\Doctrine;
 
 use Doctrine\ORM\Mapping as orm;
 
@@ -30,7 +30,7 @@ use Doctrine\ORM\Mapping as orm;
  * @property string $slug
  * @property bool $authenticated
  */
-class ImageFormatEntity extends \Nella\Doctrine\Entity implements \Nella\NetteAddons\Media\IImageFormat
+class ImageFormatEntity extends \Nella\Doctrine\Entity implements \Nella\Media\IImageFormat
 {
 	/** @var string */
 	public static $fullSlugFormat = '<id>-<slug>';
@@ -172,7 +172,7 @@ class ImageFormatEntity extends \Nella\Doctrine\Entity implements \Nella\NetteAd
 	 * @param ImageEntity
 	 * @return ImageFormatEntity
 	 */
-	public function setWatermark(\Nella\NetteAddons\Media\IImage $watermark = NULL)
+	public function setWatermark(\Nella\Media\IImage $watermark = NULL)
 	{
 		$this->watermark = $watermark;
 		return $this;

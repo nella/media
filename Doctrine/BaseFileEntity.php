@@ -4,11 +4,11 @@
  *
  * Copyright (c) 2006, 2012 Patrik Votoček (http://patrik.votocek.cz)
  *
- * For the full copyright and license information, 
+ * For the full copyright and license information,
  * please view the file LICENSE.txt that was distributed with this source code.
  */
 
-namespace Nella\Media\Model;
+namespace Nella\Media\Doctrine;
 
 use Doctrine\ORM\Mapping as orm;
 
@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping as orm;
  * @property string $slug
  * @property-read string $fullSlug
  */
-abstract class BaseFileEntity extends \Nella\Doctrine\Entity implements \Nella\NetteAddons\Media\IFile
+abstract class BaseFileEntity extends \Nella\Doctrine\Entity implements \Nella\Media\IFile
 {
 	/** @var string */
 	public static $fullSlugFormat = '<id>-<slug>';

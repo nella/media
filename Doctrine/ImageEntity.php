@@ -4,11 +4,11 @@
  *
  * Copyright (c) 2006, 2012 Patrik Votoček (http://patrik.votocek.cz)
  *
- * For the full copyright and license information, 
+ * For the full copyright and license information,
  * please view the file LICENSE.txt that was distributed with this source code.
  */
 
-namespace Nella\Media\Model;
+namespace Nella\Media\Doctrine;
 
 use Doctrine\ORM\Mapping as orm;
 
@@ -26,14 +26,14 @@ use Doctrine\ORM\Mapping as orm;
  *
  * @property-read string $imageType
  */
-class ImageEntity extends BaseFileEntity implements \Nella\NetteAddons\Media\IImage
+class ImageEntity extends BaseFileEntity implements \Nella\Media\IImage
 {
 	/**
 	 * @return string
 	 */
 	public function getImageType()
 	{
-		$ext = \Nella\NetteAddons\Media\Helper::mimeTypeToExt($this->getContentType());
+		$ext = \Nella\Media\Helper::mimeTypeToExt($this->getContentType());
 		return in_array($ext, array('png', 'jpg', 'gif')) ? $ext : 'jpg';
 	}
 }

@@ -8,23 +8,21 @@
  * please view the file LICENSE.txt that was distributed with this source code.
  */
 
-namespace Nella\Media\Model;
-
-use Doctrine\ORM\Mapping as orm;
+namespace Nella\Media;
 
 /**
- * File resource entity
- *
- * @orm\entity
- * @orm\table(name="media_files")
- *
- * @orm\inheritanceType("JOINED")
- * @orm\discriminatorColumn(name="type", type="string")
- * @orm\discriminatorMap({"base" = "FileEntity"})
+ * Image presenter callback response interface
  *
  * @author	Patrik Votoček
  */
-class FileEntity extends BaseFileEntity
+interface IImagePresenterCallback
 {
+	/**
+	 * @param IImage
+	 * @param IImageFormat
+	 * @param string
+	 * @return \Nette\Application\IResponse
+	 */
+	public function __invoke(IImage $image, IImageFormat $format, $type);
 }
 

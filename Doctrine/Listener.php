@@ -8,7 +8,7 @@
  * please view the file LICENSE.txt that was distributed with this source code.
  */
 
-namespace Nella\Media\Model;
+namespace Nella\Media\Doctrine;
 
 /**
  * Media listener

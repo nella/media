@@ -8,33 +8,33 @@
  * please view the file LICENSE.txt that was distributed with this source code.
  */
 
-namespace Nella\Media\Model;
+namespace Nella\Media\Doctrine;
 
 use Doctrine\ORM\Mapping as orm;
 
 /**
- * Base file / image DAO
+ * Image format DAO
  *
  * @author	Patrik Votoček
  */
-abstract class BaseDao extends \Nella\Model\Facade
+class ImageFormatDao extends \Nella\Model\Facade implements \Nella\Media\Model\IImageFormatDao
 {
-	/** @var \Nella\NetteAddons\Media\IStorage */
-	protected $storage;
+	/** @var \Nella\Media\IImageCacheStorage */
+	protected $cacheStorage;
 
 	/**
-	 * @param \Nella\NetteAddons\Media\IStorage
+	 * @param \Nella\Media\IImageCacheStorage
 	 * @return ImageDao
 	 */
-	public function setStorage(\Nella\NetteAddons\Media\IStorage $storage)
+	public function setCacheStorage(\Nella\Media\IImageCacheStorage $cacheStorage)
 	{
-		$this->storage = $storage;
+		$this->cacheStorage = $cacheStorage;
 		return $this;
 	}
 
 	/**
 	 * @param string
-	 * @return \Nella\Media\Model\FileEntity|\Nella\Media\Model\ImageEntity|NULL
+	 * @return \Nella\Media\Doctrine\ImageFormatEntity|NULL
 	 */
 	public function findOneByFullSlug($fullSlug)
 	{
@@ -51,17 +51,14 @@ abstract class BaseDao extends \Nella\Model\Facade
 	/**
 	 * @param object
 	 * @param bool
-	 * @param string|\Nette\Http\FileUpload
+	 * @param string
 	 */
 	public function save($entity, $withoutFlush = self::FLUSH, $originalPath = NULL)
 	{
-		if ($entity->id === NULL && $this->storage) {
-			if (!$originalPath) {
-				throw new \Nette\InvalidStateException('Source path must be defined');
-			}
-			$storage = $this->storage;
-			$entity->onFlush[] = function ($entity) use ($storage, $originalPath) {
-				$storage->save($entity, $originalPath);
+		if ($entity instanceof \Nella\Media\IImageFormat && $entity->id !== NULL && $this->cacheStorage) {
+			$cacheStorage = $this->cacheStorage;
+			$entity->onFlush[] = function ($entity) use ($cacheStorage) {
+				$cacheStorage->clean($entity);
 			};
 		}
 
@@ -74,13 +71,14 @@ abstract class BaseDao extends \Nella\Model\Facade
 	 */
 	public function remove($entity, $withoutFlush = self::FLUSH)
 	{
-		if ($entity->id !== NULL && $this->storage) {
-			$storage = $this->storage;
-			$entity->onFlush[] = function ($entity) use ($storage) {
-				$storage->remove($entity);
+		if ($entity instanceof \Nella\Media\IImageFormat && $entity->id !== NULL && $this->cacheStorage) {
+			$cacheStorage = $this->cacheStorage;
+			$entity->onFlush[] = function ($entity) use ($cacheStorage) {
+				$cacheStorage->clean($entity);
 			};
 		}
-		parent::remove($entity, $withoutFlush);
+
+		return parent::remove($entity, $withoutFlush);
 	}
 }
 
