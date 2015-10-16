@@ -17,7 +17,7 @@ Suggest
 Installation
 ------------
 
-Add `"nella/media": "*"` to *composer.json and run `composer update`.
+Run `composer require nella/media`.
 Edit your *bootstrap.php* and add `Nella\Media\Config\Extension::register($configurator);`
 before `$configurator->createContainer()`.
 
