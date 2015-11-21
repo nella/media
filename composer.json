@@ -1,10 +1,8 @@
 {
-	"name": "nella/media",
-	"type": "nette-addon",
-	"description": "Media integration addon for Nette Framework",
-	"keywords": ["media", "nette", "migrations", "nella", "addon"],
-	"homepage": "http://nellafw.org",
-	"license": ["BSD-3-Clause", "GPL-2.0+"],
+	"name": "nella/forms",
+	"type": "library",
+	"description": "THE DEVELOPMENT OF NELLA FORMS HAS BEEN ABANDONED",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Patrik Votoček",
@@ -17,21 +15,10 @@
 			"homepage": "http://nella-project.org"
 		}
 	],
-	"support":{
-		"issues":"https://github.com/nella/framework/issues",
-		"source":"https://github.com/nella/framework/tree/master/Nella/Media"
-    },
 	"autoload": {
-		"psr-0": {
-			"Nella\\Media": "./"
-		}
+		"files": ["index.php"]
 	},
-	"target-dir": "Nella/Media",
 	"require": {
-		"php": ">=5.3.2",
-		"nette/nette": "2.0.*"
-	},
-	"suggest": {
-		"nella/doctrine": "Integrate Doctrine 2 ORM to Nette Framework"
+		"php": ">=5.3.2"
 	}
 }
